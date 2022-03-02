@@ -1,4 +1,8 @@
 import { Injectable } from '@nestjs/common'
+import { spawnSync } from 'child_process'
+import { mkdtempSync, readFileSync, rmSync } from 'fs'
+import { tmpdir } from 'os'
+import { join } from 'path'
 import PDFMerger from 'pdf-merger-js'
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf'
 import Puppeteer from 'puppeteer'
@@ -79,7 +83,28 @@ export class PuppeteerService {
     }
 
     await page.close()
-    return merger.saveAsBuffer()
+    const tempDir = mkdtempSync(tmpdir())
+    try {
+      const path = join(tempDir, 'original.pdf')
+      await merger.save(path)
+      const compressedPath = join(tempDir, 'compressed.pdf')
+      const res = spawnSync('gs', [
+        '-q',
+        '-dNOPAUSE',
+        '-dBATCH',
+        '-dSAFER',
+        '-sDEVICE=pdfwrite',
+        '-dPDFSETTINGS=/ebook',
+        `-sOutputFile=${compressedPath}`,
+        path,
+      ])
+      if (res.status !== 0) {
+        throw new Error('Compress pdf failed')
+      }
+      return readFileSync(compressedPath)
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true })
+    }
   }
 
   private static _browser?: Promise<Puppeteer.Browser>
