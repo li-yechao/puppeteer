@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.1](https://github.com/li-yechao/puppeteer/compare/@puppeteer/server@0.1.0-alpha.0...@puppeteer/server@0.1.0-alpha.1) (2022-03-18)
+
+### Bug Fixes
+
+- set default timeout ([b3b693b](https://github.com/li-yechao/puppeteer/commit/b3b693b4c91cd03c1a0a2a26d81d308f48b7c29a))
+
 # 0.1.0-alpha.0 (2022-03-04)
 
 ### Features
