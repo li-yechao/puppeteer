@@ -7,6 +7,8 @@ import PDFMerger from 'pdf-merger-js'
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf'
 import Puppeteer from 'puppeteer'
 
+const DEFAULT_TIMEOUT = 180e3
+
 @Injectable()
 export class PuppeteerService {
   async pdf({
@@ -24,12 +26,14 @@ export class PuppeteerService {
   }): Promise<Buffer> {
     const browser = await PuppeteerService.browser
     const page = await browser.newPage()
-    await page.goto(url, { waitUntil: 'networkidle2' })
+    page.setDefaultTimeout(DEFAULT_TIMEOUT)
+    await page.goto(url, { waitUntil: 'networkidle0' })
     const buffer = await page.pdf({
       displayHeaderFooter: false,
       printBackground,
       format: 'a4',
       margin: { left: margin, top: margin, right: margin, bottom: margin },
+      timeout: DEFAULT_TIMEOUT,
     })
 
     const { numPages } = await pdfjs.getDocument(buffer).promise
@@ -46,6 +50,7 @@ export class PuppeteerService {
             right: marginOfPageFirst,
             bottom: marginOfPageFirst,
           },
+          timeout: DEFAULT_TIMEOUT,
         })
       : undefined
 
@@ -61,6 +66,7 @@ export class PuppeteerService {
               right: marginOfPageFirst,
               bottom: marginOfPageFirst,
             },
+            timeout: DEFAULT_TIMEOUT,
           })
         : undefined
 
