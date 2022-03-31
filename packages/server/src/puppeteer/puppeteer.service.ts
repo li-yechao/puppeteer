@@ -13,12 +13,14 @@ const DEFAULT_TIMEOUT = 180e3
 export class PuppeteerService {
   async pdf({
     url,
+    timezone,
     printBackground,
     margin,
     marginOfPageFirst,
     marginOfPageLast,
   }: {
     url: string
+    timezone?: string
     printBackground?: boolean
     margin?: string | number
     marginOfPageFirst?: string | number
@@ -26,6 +28,9 @@ export class PuppeteerService {
   }): Promise<Buffer> {
     const browser = await PuppeteerService.browser
     const page = await browser.newPage()
+    if (timezone) {
+      await page.emulateTimezone(timezone)
+    }
     page.setDefaultTimeout(DEFAULT_TIMEOUT)
     await page.goto(url, { waitUntil: 'networkidle0' })
     const buffer = await page.pdf({

@@ -8,6 +8,7 @@ export class PuppeteerController {
   @Get('pdf')
   async pdf(
     @Query('url') url?: string,
+    @Query('timezone') timezone?: string,
     @Query('printBackground') printBackground?: string,
     @Query('margin') margin?: string,
     @Query('marginOfPageFirst') marginOfPageFirst?: string,
@@ -28,6 +29,7 @@ export class PuppeteerController {
     return new StreamableFile(
       await this.puppeteerService.pdf({
         url,
+        timezone,
         printBackground: printBackground === 'true',
         margin,
         marginOfPageFirst,
