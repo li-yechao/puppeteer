@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0-alpha.2](https://github.com/li-yechao/puppeteer/compare/@puppeteer/server@0.1.0-alpha.1...@puppeteer/server@0.1.0-alpha.2) (2022-03-31)
+
+### Features
+
+- add timezone query ([dc23931](https://github.com/li-yechao/puppeteer/commit/dc2393165eb742759d4450aa38e682ed41e68865))
+
 # [0.1.0-alpha.1](https://github.com/li-yechao/puppeteer/compare/@puppeteer/server@0.1.0-alpha.0...@puppeteer/server@0.1.0-alpha.1) (2022-03-18)
 
 ### Bug Fixes
