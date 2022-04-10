@@ -12,14 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
-import { Config } from './config'
-import { PuppeteerModule } from './puppeteer/puppeteer.module'
-
-@Module({
-  imports: [ConfigModule.forRoot({ envFilePath: ['.env.local', '.env'] }), PuppeteerModule],
-  controllers: [],
-  providers: [Config],
-})
-export class AppModule {}
+jest.setTimeout(30e3)

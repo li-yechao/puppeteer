@@ -15,9 +15,24 @@
 import { Module } from '@nestjs/common'
 import { PuppeteerService } from './puppeteer.service'
 import { PuppeteerController } from './puppeteer.controller'
+import { Cluster } from 'puppeteer-cluster'
 
 @Module({
-  providers: [PuppeteerService],
   controllers: [PuppeteerController],
+  providers: [
+    PuppeteerService,
+    {
+      provide: Cluster,
+      useFactory: () =>
+        Cluster.launch({
+          concurrency: Cluster.CONCURRENCY_BROWSER,
+          maxConcurrency: 10,
+          puppeteerOptions: {
+            headless: true,
+            args: ['--no-sandbox'],
+          },
+        }),
+    },
+  ],
 })
 export class PuppeteerModule {}
