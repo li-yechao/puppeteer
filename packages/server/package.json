@@ -1,13 +1,12 @@
 {
   "name": "@puppeteer/server",
   "version": "1.0.0-alpha.0",
-  "description": "",
+  "description": "puppeteer server",
+  "license": "Apache-2.0",
   "author": {
     "name": "LiYechao",
     "email": "liyechao@yechao.xyz"
   },
-  "private": true,
-  "license": "UNLICENSED",
   "scripts": {
     "dev": "nest start --watch",
     "start": "node dist/main",

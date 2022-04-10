@@ -1,6 +1,6 @@
 {
   "name": "puppeteer",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "private": true,
   "author": {
     "name": "LiYechao",
