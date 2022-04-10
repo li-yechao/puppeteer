@@ -11,7 +11,7 @@ RUN yarn install && \
 	yarn install --prod && \
 	rm -rf /target && \
 	mkdir -p /target && \
-	cp -r /app/package.json /app/node_modules /app/dist /target/
+	cp -r /app/package.json /app/node_modules /app/dist /app/.env /target/
 
 FROM node:16-slim
 
@@ -23,5 +23,4 @@ WORKDIR /app/
 
 COPY --from=build /target .
 
-
-CMD ["yarn", "start:prod"]
+CMD ["yarn", "start"]
