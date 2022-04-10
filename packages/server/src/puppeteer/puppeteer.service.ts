@@ -17,7 +17,7 @@ import { spawnSync } from 'child_process'
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'fs'
 import { tmpdir } from 'os'
 import { join } from 'path'
-import { PaperFormat, PDFOptions } from 'puppeteer'
+import { PaperFormat } from 'puppeteer'
 import { Cluster } from 'puppeteer-cluster'
 
 const DEFAULT_TIMEOUT = 180e3
@@ -46,15 +46,11 @@ export class PuppeteerService {
       page.setDefaultTimeout(DEFAULT_TIMEOUT)
       await page.goto(url, { waitUntil: 'networkidle0' })
 
-      const pdfOptions: PDFOptions = {
+      return page.pdf({
         displayHeaderFooter: false,
         printBackground,
         format,
         timeout: DEFAULT_TIMEOUT,
-      }
-
-      return page.pdf({
-        ...pdfOptions,
         margin: { left: margin, top: margin, right: margin, bottom: margin },
       })
     })
